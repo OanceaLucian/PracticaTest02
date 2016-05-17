@@ -17,12 +17,12 @@ public class ServerThread extends Thread {
 
     private int port = 0;
     private ServerSocket serverSocket = null;
-
+    int time;
     private HashMap<String, String> data = null;
 
     public ServerThread(int port) {
         this.port = port;
-         
+         this.time = 0;
         
         try {
             this.serverSocket = new ServerSocket(port);
@@ -50,7 +50,9 @@ public class ServerThread extends Thread {
     public ServerSocket getServerSocket() {
         return serverSocket;
     }
-
+    public void setTime(int time){
+    	this.time = time;
+    }
     public synchronized void setData(String key, String value) {
         this.data.put(key, value);
     }
@@ -61,10 +63,11 @@ public class ServerThread extends Thread {
 
     @Override
     public void run() {
-        try {
+        
+    	
+    	try {
             while (!Thread.currentThread().isInterrupted()) {
-            	
-                
+            	                
                 Log.i(Constants.TAG, "[SERVER] Waiting for a connection...");
                 Socket socket = serverSocket.accept();
                 Log.i(Constants.TAG, "[SERVER] A connection request was received from " + socket.getInetAddress() + ":" + socket.getLocalPort());

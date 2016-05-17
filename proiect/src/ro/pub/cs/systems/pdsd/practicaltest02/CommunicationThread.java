@@ -28,8 +28,9 @@ public class CommunicationThread extends Thread {
     @Override
     public void run() {
         if (socket != null) {
-        	            
+        	 	
             try {
+                       	
                 BufferedReader bufferedReader = Utilities.getReader(socket);
                 PrintWriter printWriter = Utilities.getWriter(socket);
                 if (bufferedReader != null && printWriter != null) {
@@ -37,19 +38,20 @@ public class CommunicationThread extends Thread {
                     String operation = bufferedReader.readLine();
                     HashMap<String, String> data = serverThread.getData();
                     if(operation!=null){
+                    	
                     	HttpClient httpClient = new DefaultHttpClient();
                         HttpGet httpGet = new HttpGet("http://www.timeapi.org/utc/now");
                         ResponseHandler<String> responseHandler = new BasicResponseHandler();
                         try {
-           				String pageSourceCode = httpClient.execute(httpGet, responseHandler);
-           				Log.i(Constants.TAG,"[COMMUNICATION THREAD]"+ pageSourceCode);
+            				String pageSourceCode = httpClient.execute(httpGet, responseHandler);
+            				Log.i(Constants.TAG,"[COMMUNICATION THREAD]"+ pageSourceCode);
                         } catch (ClientProtocolException e) {
-           				// TODO Auto-generated catch block
-           				e.printStackTrace();
-           			} catch (IOException e) {
-           				// TODO Auto-generated catch block
-           				e.printStackTrace();
-           			}
+            				// TODO Auto-generated catch block
+            				e.printStackTrace();
+            			} catch (IOException e) {
+            				// TODO Auto-generated catch block
+            				e.printStackTrace();
+            			}          
                     	
                     	Log.i(Constants.TAG,"[COMMUNICATION THREAD]"+ operation);
                     	String[] tokens = operation.split(",");
